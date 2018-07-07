@@ -141,7 +141,7 @@ void playPause()
     {
         char buf[1024] = {};
         //将标准错误重定向到/dev/null，有问题
-        sprintf(buf,"madplay -o wav:- /home/admin/music/%s  2> /dev/null | aplay  2> /dev/null&",cur->name);
+        sprintf(buf,"madplay -o wav:- /home/admin/bit_code/Project/mp3/music/%s  2> /dev/null | aplay  2> /dev/null&",cur->name);
         //指向buf
         system(buf);
         //执行之后，就不是第一次播放了，此时first不为1
@@ -209,7 +209,7 @@ int main(int argc,char* argv[])
     //初始化双向链表
     list_init();
     //加载歌曲，将歌曲插入到双向链表中
-    load_music("/home/admin/music");
+    load_music("/home/admin/bit_code/Project/mp3/music");
     //如果双向链表不为空，则当前歌曲的指针指向实际的第一首歌曲
     if(head->next != head)
     {
