@@ -5,10 +5,12 @@ LIB_NAME=-lmysqlclient
 LIB_FLAG=-static
 
 .PHONY:all
-all:echoserver insertdata selectdata
+all:echoserver echoserver1 insertdata selectdata
 
 echoserver:echoserver.c
 	gcc -o $@ $^
+echoserver1:echoserver1.cpp
+	g++ -o $@ $^
 insertdata:insertdata.c
 	gcc -o $@ $^ $(INCLUDE) $(LIB) $(LIB_NAME)
 selectdata:selectdata.c
@@ -16,4 +18,4 @@ selectdata:selectdata.c
 
 .PHONY:clean
 clean:
-	rm -f echoserver insertdata selectdata
+	rm -f echoserver echoserver1 insertdata selectdata

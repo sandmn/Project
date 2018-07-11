@@ -58,8 +58,8 @@ int main()
         }
     }
    
-    //printf("%s\n", buf);
-    mycal(buf);
+    printf("%s\n", buf);
+    //mycal(buf);
 
     return 0;
 }
