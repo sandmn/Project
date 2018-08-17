@@ -22,9 +22,13 @@ ser_src=$(shell ls $(SERVER_PATH)/*.cpp $(DATA_POOL_PATH)/*.cpp $(COMM_PATH)/*.c
 
 cli_src=$(shell ls $(CLIENT_PATH)/*.cpp $(COMM_PATH)/*.cpp $(WIN_PATH)/*.cpp| sed 's/.cpp/.o/'|sed 's/.*\///g')
 
-#cli_src=$(shell ls $(CLIENT_PATH)/%.o $(WIN_PATH)/%.o $(COMM_PATH)/%.o)
+#ser_src=$(shell ls $(SERVER_PATH)/*.cpp $(DATA_POOL_PATH)/*.cpp $(COMM_PATH)/*.cpp | sed 's/cpp/o/g' | sed 's/.*\///g')
+##echo $(ser_src)
+#cli_src=$(shell ls $(CLIENT__PATH)/*.cpp $(WIN_PATH)/*.cpp $(COMM_PATH)/*.cpp | sed 's/cpp/o/g'| sed 's/.*\///g')
+#echo $(cli_src)
+
 ##服务器端需要连接的.o文件
-#ser_src=$(shell ls $(SERVER_PATH)/%.o $(DATA_POOL_PATH)/%.o $(COMM_PATH)/%.o)
+#ser_src=$(shell ls $(SERVER_PATH)/*.o $(DATA_POOL_PATH)/*.o $(COMM_PATH)/*.o)
 #除此之外，客户端和服务器端还需要链接线程库，json库
 LIBFLAG=-L$(LIB_PATH)/lib -ljsoncpp -lpthread 
 

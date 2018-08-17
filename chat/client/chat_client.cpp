@@ -1,6 +1,7 @@
 
 #include<stdio.h>
 #include<pthread.h>
+#include<signal.h>
 #include"udp_client.h"
 #include"window.h"
 #include"data.h"
@@ -12,12 +13,16 @@ typedef struct client
     udp_client* ucp;
 }client;
 
+//创建一个包含窗口类和网络数据收发的类的结构体对象
+//定义为全局变量，这样在信号捕捉函数和各线程处理函数中均可以使用
+client for_cli;
+
 //定义一个包含用户姓名和学校的结构体
 struct
 {
     std::string nickname;
     std::string school;
-}usr_msg;//定义一个全局变量
+}usr_msg;//定义一个全局变量,这样在信号捕捉函数和各线程处理函数中均可以使用
 
 void* handler_title(void* arg)
 {
@@ -26,6 +31,24 @@ void* handler_title(void* arg)
     win->show_title();
     //然后在在窗口中构建移动的标题字符串
     win->MoveTitle();
+}
+//如果客户端ctl+c退出，若不对该信号进行捕捉
+//在下一次该客户端再次连接服务器时，就会因为服务器端没有删除该用户，而连接不上
+//此时，客户端还会在次收到该用户发送的消息，但是不能发送给客户端
+void handler_SIGINT(int num)
+{
+    udp_client* uc = for_cli.ucp;
+    //主线程处理SIGINT的捕捉
+    std::string sendstring;
+    data d;
+    d.nickname = usr_msg.nickname;
+    d.school = usr_msg.school;
+    d.msg = "";
+    d.cmd = "QUIT";
+    d.serilize(sendstring);
+    uc->sendData_to_server(sendstring);   
+    delete for_cli.wp;
+    exit(1);
 }
 
 //该线程用于循环的从输入窗口中获取消息
@@ -115,6 +138,7 @@ void* handler_output(void* arg)
     }
 }
 
+
 int main(int argc,char* argv[])
 {
     if(argc != 3)
@@ -134,11 +158,11 @@ int main(int argc,char* argv[])
     std::cin>>usr_msg.school;
 
     //创建一个窗口类
-    window win;
-    //创建一个包含窗口类和网络数据收发的类的结构体对象
-    client for_cli;
-    for_cli.wp = &win;
+    window* win = new window;
+    for_cli.wp = win;
     for_cli.ucp = &netdata;
+    //设置ctl+c信号的捕捉
+    signal(SIGINT,handler_SIGINT);
 
     //然后创建一个三个线程用于标题框，输入框，输出框的显示
     //int pthread_create(pthread_t *thread, const pthread_attr_t *attr,

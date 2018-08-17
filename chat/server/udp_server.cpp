@@ -16,6 +16,7 @@ int udp_server::Init()
     //int socket(int domain, int type, int protocol);
     //创建文件描述符
     sock = socket(AF_INET,SOCK_DGRAM,0);
+    //setsockopt
     if(sock < 0)
     {
         std::cerr<<"socket error"<<std::endl;
@@ -76,6 +77,10 @@ void udp_server::boardcase_to_client()
     //从数据池中获取数据
     pool.getData(str);
     //将获取的数据发送给在线用户列表中的每个用户
+    //当一个客户端退出后，该客户端再次连接时，如果不删除之前的记录
+    //会默认发给之前用户保存的套接字信息，但是之前的用户已经退出，此时就会导致发送不到新的客户端
+    //可能端口号不同
+    //所以，当一个客户端退出后，要清除其在服务器端的记录，再次连接时就会添加成功
     std::map<int,struct sockaddr_in>::iterator it = online.begin();
     while(it != online.end())
     {
@@ -86,6 +91,7 @@ void udp_server::boardcase_to_client()
 //添加用户至在线用户列表中
 void udp_server::AddUser(struct sockaddr_in& c)
 {
+    //map在插入数据时，如果key相等，就不会重复添加了
     online.insert(std::pair<int,struct sockaddr_in>(c.sin_addr.s_addr,c));
 }
 //从在线用户列表中删除用户
