@@ -282,6 +282,7 @@ static void* handler_request(void* arg)
         goto end;
     }
     //get url->将请求行中间位置的url拿出来
+    //跳过方法与url之间的空格
     while(j<sizeof(line) && isspace(line[j]))
     {
         j++;
@@ -317,6 +318,7 @@ static void* handler_request(void* arg)
     //不论存不存在，请求的资源一定会从当前目录下的wwwroot下开始
     //url中放的是wwwroot/a/b/c.html,请求某文件 | url->wwwroot/,请求目录->返回首页
     sprintf(path, "wwwroot%s", url);//将url前拼接上第二个参数输出到path
+    //如果请求的是目录
     if(path[strlen(path)-1] == '/')//将路径拼接上
     {
         strcat(path, HOME_PAGE);

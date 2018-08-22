@@ -49,36 +49,65 @@
 <!--日期计算器-->
 
 <html>
-    <body>
-        <h1>Welcome to Sandmn's http server!</h1>
+    <body bgcolor="#00FFFF">
+        <h1 align="center">Welcome to Sandmn's Date calculator!</h1>
 
         <form action="/cgi/echoserver1" method="GET">
-            year:
-            <input type="TEXT" name="year" value="1900">
-            month:
-            <input type="TEXT" name="month" value="1">
-            day:
-            <input type="TEXT" name="day" value="1">
+            <table border="1" align="center">
+            <tr>
+                <td>
+            start date:
             <br>
-
-            +days:
-            <input type="TEXT" name="add_days" value="0">
-            ans:
-            <input type="TEXT" name="add_ans" value="">
+            <input type="TEXT" name="year" value="1900" style="height:20px;width:50px">
+            year
+            <input type="TEXT" name="month" value="1" style="height:20px;width:50px">
+            month
+            <input type="TEXT" name="day" value="1" style="height:20px;width:50px">
+            day
             <br>
-
-            -days:
-            <input type="TEXT" name="sub_days" value="0">
-            ans:
-            <input type="TEXT" name="sub_ans" value="">
-            
+            after:
+            <br>
+            <input type="TEXT" name="add_days" value="0" style="height:20px;width:50px">
+            days
             <br><br>
-           
-            <input type="SUBMIT" value="Submit">
+            end date:
+            <br>
+            <input type="TEXT" name="add_ans" value="null">
+            <br>
+            <br>
+            </td>
+            <td>
+            start date:
+            <br>
+            <input type="TEXT" name="s_year" value="1900" style="height:20px;width:50px">
+            year
+            <input type="TEXT" name="s_month" value="1" style="height:20px;width:50px">
+            month
+            <input type="TEXT" name="s_day" value="1" style="height:20px;width:50px">
+            day
+            <br>
+            end date:
+            <br>
+            <input type="TEXT" name="e_year" value="1900" style="height:20px;width:50px">
+            year
+            <input type="TEXT" name="e_month" value="1" style="height:20px;width:50px">
+            month
+            <input type="TEXT" name="e_day" value="1" style="height:20px;width:50px">
+            day
+            <br>
+            <br>
+            difference:
+            <input type="TEXT" name="f_day" value="0" style="height:20px;width:50px">
+            days
+                </td>
+            </tr>
+        </table>
+
+            <input type="SUBMIT" align="center" value="Submit">
+
 
         </form> 
         <br><br>
-        <img src="/image/jony-jack-tt.jpg" alt="jonyj & youngjack & tt">
     
     </body>
 </html>
