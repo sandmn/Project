@@ -17,9 +17,9 @@ output:
 	cp -rf lib/lib output/lib/
 	cp -f wwwroot/*.html output/wwwroot
 	cp -rf wwwroot/image/ output/wwwroot/
-	cp -f wwwroot/cgi/echoserver output/wwwroot/cgi
-	cp -f wwwroot/cgi/insertdata output/wwwroot/cgi
-	cp -f wwwroot/cgi/selectdata output/wwwroot/cgi
+	cp -f wwwroot/cgi/echoserver1 output/wwwroot/cgi
+	#cp -f wwwroot/cgi/insertdata output/wwwroot/cgi
+	#cp -f wwwroot/cgi/selectdata output/wwwroot/cgi
 
 .PHONY:clean
 clean:
